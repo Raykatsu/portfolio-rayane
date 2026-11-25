@@ -312,8 +312,8 @@ h4:first-child{margin-top:0}
 
 /* Précisions sur les réalisations */
 .badge{display:inline-block;margin-left:8px;padding:2px 10px;border-radius:999px;background:var(--safran);color:var(--safran-ink);font:700 .74rem/1.5 var(--font-body);font-style:normal;letter-spacing:.02em;vertical-align:middle;white-space:nowrap}
-.case-sub .badge{margin-left:10px}
-.case-list .badge{margin-left:8px;padding:1px 9px;font-size:.7rem}
+.case-sub .badge{margin-left:6px}
+.case-list .badge{margin-left:3px;padding:1px 9px;font-size:.7rem}
 .reflect .miss{margin-bottom:0}
 .ticks a{color:var(--marine)}
 .notice{margin-top:-18px;margin-bottom:clamp(26px,4vw,44px);color:var(--ink-soft);font-size:.98rem;max-width:62ch}
@@ -916,7 +916,7 @@ const CHAPTERS = [
   { id: 'regard', label: 'Mon regard sur les RH', title: 'Concilier l’humain et les attentes de l’entreprise',
     text: ['Les RH sont le métier le plus proche de l’humain, et pourtant on leur reproche souvent un manque d’empathie. Mais un poste RH est aussi là pour répondre aux attentes de l’entreprise. Je pense qu’il faut concilier les deux et trouver un juste milieu. C’est difficile, mais pas impossible.',
            'Pour moi, un bon RH sait mettre son empathie au service de son travail sans se laisser submerger par elle. Mais l’empathie reste essentielle.',
-           'J’ai vu, dans l’un de mes emplois en restauration rapide, des salariés traités comme des pièces interchangeables. Le turnover est naturellement élevé dans ce secteur, mais la façon de gérer les équipes compte beaucoup. J’en tire ce que je voudrais faire autrement en RH.',
+           'Mes emplois en restauration rapide m’ont montré, de l’intérieur, à quel point la façon de gérer une équipe pèse sur l’envie des salariés de rester. Dans ce secteur, le turnover est naturellement élevé, et c’est justement là que l’accueil, l’écoute et le suivi font la différence. C’est ce que je voudrais mettre en pratique en RH.',
            'C’est aussi pour cela que j’ai choisi un pont comme symbole de ce portfolio : un ouvrage d’architecte, qui relie deux rives. En RH, c’est ce lien entre l’entreprise et les personnes que je voudrais assurer.'] },
   { id: 'appris', label: 'Ce que j’ai appris', title: 'Apprendre au contact des autres',
     text: ['Mon stage chez Inspiration x TBS m’a permis de rencontrer beaucoup de monde, dans des secteurs très différents, et chaque personne m’a appris quelque chose. C’est ce que j’y ai le plus aimé.',
@@ -1085,7 +1085,7 @@ function mountCases(rootSel, data) {
   const st = { id: data[0].id, tab: 'projet' };
   const uid = rootSel.replace('#', '');
   root.innerHTML = `<div class="case-list" role="group" aria-label="Réalisations">${data.map(c =>
-    `<button type="button" data-id="${c.id}" aria-pressed="false"><span class="ct">${c.title}${c.badge ? `<span class="badge">${c.badge}</span>` : ''}</span><span class="cs">${c.sub}</span></button>`).join('')}</div>
+    `<button type="button" data-id="${c.id}" aria-pressed="false"><span class="ct">${c.title}${c.badge ? ` <span class="badge">${c.badge}</span>` : ''}</span><span class="cs">${c.sub}</span></button>`).join('')}</div>
     <article class="case-panel" id="${uid}-panel"></article>`;
   const list = $('.case-list', root), panel = $('.case-panel', root);
 
@@ -1113,7 +1113,7 @@ function mountCases(rootSel, data) {
   function drawCase() {
     const c = data.find(x => x.id === st.id);
     $$('button', list).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === st.id)));
-    panel.innerHTML = `<header class="case-head"><h3>${c.title}</h3><p class="case-sub">${c.sub}${c.badge ? `<span class="badge">${c.badge}</span>` : ''}</p>${c.link ? `<a class="btn accent" href="${c.link}" target="_blank" rel="noopener noreferrer">${c.linkLabel || 'Voir le projet en ligne ↗'}</a>` : ''}${c.doc ? `<a class="btn ghost" href="${c.doc}" target="_blank" rel="noopener noreferrer">${c.docLabel || 'Voir le dossier complet (PDF) ↗'}</a>` : ''}</header>
+    panel.innerHTML = `<header class="case-head"><h3>${c.title}</h3><p class="case-sub">${c.sub}${c.badge ? ` <span class="badge">${c.badge}</span>` : ''}</p>${c.link ? `<a class="btn accent" href="${c.link}" target="_blank" rel="noopener noreferrer">${c.linkLabel || 'Voir le projet en ligne ↗'}</a>` : ''}${c.doc ? `<a class="btn ghost" href="${c.doc}" target="_blank" rel="noopener noreferrer">${c.docLabel || 'Voir le dossier complet (PDF) ↗'}</a>` : ''}</header>
       <div class="seg" role="tablist" aria-label="Sections de la réalisation">${TABS.map(([k, l]) =>
         `<button type="button" role="tab" id="${uid}-tab-${k}" data-tab="${k}" aria-selected="${k === st.tab}" tabindex="${k === st.tab ? 0 : -1}" aria-controls="${uid}-body">${l}</button>`).join('')}</div>
       <div class="case-body" id="${uid}-body" role="tabpanel"></div>
